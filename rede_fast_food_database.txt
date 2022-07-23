@@ -1,0 +1,1199 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 209 (class 1259 OID 17948)
+-- Name: bebidas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.bebidas (
+    id integer NOT NULL,
+    nome character varying(50) NOT NULL,
+    conteudo real NOT NULL,
+    preco money NOT NULL,
+    id_cat_bebida integer
+);
+
+
+ALTER TABLE public.bebidas OWNER TO postgres;
+
+--
+-- TOC entry 210 (class 1259 OID 17951)
+-- Name: bebidas_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.bebidas_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.bebidas_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3508 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: bebidas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.bebidas_id_seq OWNED BY public.bebidas.id;
+
+
+--
+-- TOC entry 211 (class 1259 OID 17952)
+-- Name: categorias_bebidas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.categorias_bebidas (
+    id integer NOT NULL,
+    nome character varying(50) NOT NULL,
+    descricao character varying(200) NOT NULL
+);
+
+
+ALTER TABLE public.categorias_bebidas OWNER TO postgres;
+
+--
+-- TOC entry 212 (class 1259 OID 17955)
+-- Name: categorias_bebidas_id_cat_bebida_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.categorias_bebidas_id_cat_bebida_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.categorias_bebidas_id_cat_bebida_seq OWNER TO postgres;
+
+--
+-- TOC entry 3509 (class 0 OID 0)
+-- Dependencies: 212
+-- Name: categorias_bebidas_id_cat_bebida_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.categorias_bebidas_id_cat_bebida_seq OWNED BY public.categorias_bebidas.id;
+
+
+--
+-- TOC entry 213 (class 1259 OID 17956)
+-- Name: categorias_pratos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.categorias_pratos (
+    id integer NOT NULL,
+    nome character varying(50) NOT NULL,
+    descricao character varying(200) NOT NULL
+);
+
+
+ALTER TABLE public.categorias_pratos OWNER TO postgres;
+
+--
+-- TOC entry 214 (class 1259 OID 17959)
+-- Name: categorias_pratos_id_cat_prato_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.categorias_pratos_id_cat_prato_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.categorias_pratos_id_cat_prato_seq OWNER TO postgres;
+
+--
+-- TOC entry 3510 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: categorias_pratos_id_cat_prato_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.categorias_pratos_id_cat_prato_seq OWNED BY public.categorias_pratos.id;
+
+
+--
+-- TOC entry 215 (class 1259 OID 17960)
+-- Name: clientes; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.clientes (
+    id integer NOT NULL,
+    nome character varying(50) NOT NULL,
+    email character varying(100) NOT NULL,
+    telefone numeric(11,0) NOT NULL,
+    rua character varying(50) NOT NULL,
+    cidade character varying(50) NOT NULL,
+    numero integer NOT NULL,
+    tipo smallint NOT NULL,
+    cpf numeric(11,0),
+    data_nasc date,
+    cnpj numeric,
+    nome_gerente character varying(50)
+);
+
+
+ALTER TABLE public.clientes OWNER TO postgres;
+
+--
+-- TOC entry 216 (class 1259 OID 17965)
+-- Name: cliente_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.cliente_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cliente_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3511 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: cliente_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.cliente_id_seq OWNED BY public.clientes.id;
+
+
+--
+-- TOC entry 217 (class 1259 OID 17966)
+-- Name: estoque_da_filial; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.estoque_da_filial (
+    id_filial integer NOT NULL,
+    id_prod_estoque integer NOT NULL,
+    quantidade integer NOT NULL
+);
+
+
+ALTER TABLE public.estoque_da_filial OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 17969)
+-- Name: filiais; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.filiais (
+    id integer NOT NULL,
+    nome character varying(50) NOT NULL,
+    localizacao character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.filiais OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 17972)
+-- Name: filiais_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.filiais_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.filiais_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3512 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: filiais_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.filiais_id_seq OWNED BY public.filiais.id;
+
+
+--
+-- TOC entry 220 (class 1259 OID 17973)
+-- Name: fornecedores; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.fornecedores (
+    id integer NOT NULL,
+    nome character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.fornecedores OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 17976)
+-- Name: fornecedores_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.fornecedores_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.fornecedores_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3513 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: fornecedores_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.fornecedores_id_seq OWNED BY public.fornecedores.id;
+
+
+--
+-- TOC entry 222 (class 1259 OID 17977)
+-- Name: funcionario_filial; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.funcionario_filial (
+    id_funcionario integer NOT NULL,
+    id_filial integer NOT NULL
+);
+
+
+ALTER TABLE public.funcionario_filial OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 17980)
+-- Name: funcionarios; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.funcionarios (
+    id integer NOT NULL,
+    nome character varying(50) NOT NULL,
+    email character varying(100) NOT NULL,
+    telefone integer NOT NULL,
+    status_contratacao smallint NOT NULL,
+    rua character varying(100) NOT NULL,
+    numero integer NOT NULL,
+    cidade character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.funcionarios OWNER TO postgres;
+
+--
+-- TOC entry 224 (class 1259 OID 17983)
+-- Name: funcionarios_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.funcionarios_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.funcionarios_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3514 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: funcionarios_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.funcionarios_id_seq OWNED BY public.funcionarios.id;
+
+
+--
+-- TOC entry 225 (class 1259 OID 17984)
+-- Name: pedidos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.pedidos (
+    id integer NOT NULL,
+    id_venda integer NOT NULL,
+    observacoes character varying(200)
+);
+
+
+ALTER TABLE public.pedidos OWNER TO postgres;
+
+--
+-- TOC entry 226 (class 1259 OID 17987)
+-- Name: pedidos_bebidas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.pedidos_bebidas (
+    id_pedido integer NOT NULL,
+    id_bebida integer NOT NULL,
+    quantidade integer NOT NULL
+);
+
+
+ALTER TABLE public.pedidos_bebidas OWNER TO postgres;
+
+--
+-- TOC entry 227 (class 1259 OID 17990)
+-- Name: pedidos_id_pedido_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.pedidos_id_pedido_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.pedidos_id_pedido_seq OWNER TO postgres;
+
+--
+-- TOC entry 3515 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: pedidos_id_pedido_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.pedidos_id_pedido_seq OWNED BY public.pedidos.id;
+
+
+--
+-- TOC entry 228 (class 1259 OID 17991)
+-- Name: pedidos_pratos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.pedidos_pratos (
+    id_pedido integer NOT NULL,
+    id_prato integer NOT NULL,
+    quantidade integer NOT NULL
+);
+
+
+ALTER TABLE public.pedidos_pratos OWNER TO postgres;
+
+--
+-- TOC entry 229 (class 1259 OID 17994)
+-- Name: pratos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.pratos (
+    id integer NOT NULL,
+    nome character varying(50) NOT NULL,
+    peso real NOT NULL,
+    preco money NOT NULL,
+    id_cat_prato integer
+);
+
+
+ALTER TABLE public.pratos OWNER TO postgres;
+
+--
+-- TOC entry 230 (class 1259 OID 17997)
+-- Name: pratos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.pratos_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.pratos_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3516 (class 0 OID 0)
+-- Dependencies: 230
+-- Name: pratos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.pratos_id_seq OWNED BY public.pratos.id;
+
+
+--
+-- TOC entry 231 (class 1259 OID 17998)
+-- Name: produto_fornecido; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.produto_fornecido (
+    id_prod_estoque integer NOT NULL,
+    id_fornecedor integer NOT NULL,
+    quantidade_comprada integer NOT NULL,
+    data_fornecido date NOT NULL
+);
+
+
+ALTER TABLE public.produto_fornecido OWNER TO postgres;
+
+--
+-- TOC entry 232 (class 1259 OID 18001)
+-- Name: produtos_estoques; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.produtos_estoques (
+    id integer NOT NULL,
+    nome_produto character varying(50) NOT NULL,
+    valor_unitario money NOT NULL,
+    quantidade_estoque integer NOT NULL
+);
+
+
+ALTER TABLE public.produtos_estoques OWNER TO postgres;
+
+--
+-- TOC entry 233 (class 1259 OID 18004)
+-- Name: produtos_estoques_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.produtos_estoques_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.produtos_estoques_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3517 (class 0 OID 0)
+-- Dependencies: 233
+-- Name: produtos_estoques_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.produtos_estoques_id_seq OWNED BY public.produtos_estoques.id;
+
+
+--
+-- TOC entry 234 (class 1259 OID 18005)
+-- Name: vendas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.vendas (
+    id integer NOT NULL,
+    id_cliente integer NOT NULL,
+    id_funcionario integer NOT NULL,
+    data_hora_venda timestamp without time zone NOT NULL,
+    avaliacao_cliente integer NOT NULL
+);
+
+
+ALTER TABLE public.vendas OWNER TO postgres;
+
+--
+-- TOC entry 235 (class 1259 OID 18008)
+-- Name: vendas_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.vendas_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.vendas_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3518 (class 0 OID 0)
+-- Dependencies: 235
+-- Name: vendas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.vendas_id_seq OWNED BY public.vendas.id;
+
+
+--
+-- TOC entry 3279 (class 2604 OID 18009)
+-- Name: bebidas id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bebidas ALTER COLUMN id SET DEFAULT nextval('public.bebidas_id_seq'::regclass);
+
+
+--
+-- TOC entry 3280 (class 2604 OID 18010)
+-- Name: categorias_bebidas id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.categorias_bebidas ALTER COLUMN id SET DEFAULT nextval('public.categorias_bebidas_id_cat_bebida_seq'::regclass);
+
+
+--
+-- TOC entry 3281 (class 2604 OID 18011)
+-- Name: categorias_pratos id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.categorias_pratos ALTER COLUMN id SET DEFAULT nextval('public.categorias_pratos_id_cat_prato_seq'::regclass);
+
+
+--
+-- TOC entry 3282 (class 2604 OID 18012)
+-- Name: clientes id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.clientes ALTER COLUMN id SET DEFAULT nextval('public.cliente_id_seq'::regclass);
+
+
+--
+-- TOC entry 3283 (class 2604 OID 18013)
+-- Name: filiais id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.filiais ALTER COLUMN id SET DEFAULT nextval('public.filiais_id_seq'::regclass);
+
+
+--
+-- TOC entry 3284 (class 2604 OID 18014)
+-- Name: fornecedores id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.fornecedores ALTER COLUMN id SET DEFAULT nextval('public.fornecedores_id_seq'::regclass);
+
+
+--
+-- TOC entry 3285 (class 2604 OID 18015)
+-- Name: funcionarios id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.funcionarios ALTER COLUMN id SET DEFAULT nextval('public.funcionarios_id_seq'::regclass);
+
+
+--
+-- TOC entry 3286 (class 2604 OID 18016)
+-- Name: pedidos id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pedidos ALTER COLUMN id SET DEFAULT nextval('public.pedidos_id_pedido_seq'::regclass);
+
+
+--
+-- TOC entry 3287 (class 2604 OID 18017)
+-- Name: pratos id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pratos ALTER COLUMN id SET DEFAULT nextval('public.pratos_id_seq'::regclass);
+
+
+--
+-- TOC entry 3288 (class 2604 OID 18018)
+-- Name: produtos_estoques id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.produtos_estoques ALTER COLUMN id SET DEFAULT nextval('public.produtos_estoques_id_seq'::regclass);
+
+
+--
+-- TOC entry 3289 (class 2604 OID 18019)
+-- Name: vendas id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.vendas ALTER COLUMN id SET DEFAULT nextval('public.vendas_id_seq'::regclass);
+
+
+--
+-- TOC entry 3476 (class 0 OID 17948)
+-- Dependencies: 209
+-- Data for Name: bebidas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.bebidas VALUES (1, '''refrigerante de uva''', 350, 'R$ 80,00', 1);
+INSERT INTO public.bebidas VALUES (2, '''suco de laranja''', 300, 'R$ 100,00', 2);
+
+
+--
+-- TOC entry 3478 (class 0 OID 17952)
+-- Dependencies: 211
+-- Data for Name: categorias_bebidas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.categorias_bebidas VALUES (1, '''refrigerantes''', '''varios sabores''');
+INSERT INTO public.categorias_bebidas VALUES (2, '''sucos''', '''varios sabores''');
+
+
+--
+-- TOC entry 3480 (class 0 OID 17956)
+-- Dependencies: 213
+-- Data for Name: categorias_pratos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.categorias_pratos VALUES (1, '''hamburgueres''', '''hamburgueres diversos''');
+INSERT INTO public.categorias_pratos VALUES (2, '''pizzas''', '''pizzas diversas''');
+INSERT INTO public.categorias_pratos VALUES (3, '''saladas''', '''saladas diversas''');
+
+
+--
+-- TOC entry 3482 (class 0 OID 17960)
+-- Dependencies: 215
+-- Data for Name: clientes; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.clientes VALUES (1, '''cliente1''', '''cliente1@email.com''', 111, '''rua1''', '''cidade1''', 1, 1, 11111111111, NULL, NULL, NULL);
+INSERT INTO public.clientes VALUES (2, '''cliente2''', '''cliente2@email.com''', 222, '''rua2''', '''cidade1''', 2, 1, 22222222222, NULL, NULL, NULL);
+INSERT INTO public.clientes VALUES (3, '''cliente3''', '''cliente3@email.com''', 333, '''rua3''', '''cidade1''', 3, 2, NULL, NULL, 33333, NULL);
+INSERT INTO public.clientes VALUES (4, '''cliente4''', '''cliente4@email.com''', 444, '''rua4''', '''cidade2''', 4, 2, NULL, NULL, 4444, '''gerente4''');
+INSERT INTO public.clientes VALUES (5, '''cliente5''', '''cliente5@email.com''', 555, '''rua5''', '''cidade3''', 5, 1, 55555555555, NULL, NULL, NULL);
+
+
+--
+-- TOC entry 3484 (class 0 OID 17966)
+-- Dependencies: 217
+-- Data for Name: estoque_da_filial; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.estoque_da_filial VALUES (3, 5, 30);
+INSERT INTO public.estoque_da_filial VALUES (2, 3, 200);
+INSERT INTO public.estoque_da_filial VALUES (1, 1, 10);
+
+
+--
+-- TOC entry 3485 (class 0 OID 17969)
+-- Dependencies: 218
+-- Data for Name: filiais; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.filiais VALUES (1, '''filial1''', '''cidade1''');
+INSERT INTO public.filiais VALUES (2, '''filial2''', '''cidade2''');
+INSERT INTO public.filiais VALUES (3, '''filial3''', '''cidade3''');
+
+
+--
+-- TOC entry 3487 (class 0 OID 17973)
+-- Dependencies: 220
+-- Data for Name: fornecedores; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.fornecedores VALUES (1, '''fornecedor1''');
+INSERT INTO public.fornecedores VALUES (2, '''fornecedor2''');
+INSERT INTO public.fornecedores VALUES (3, '''fornecedor3''');
+
+
+--
+-- TOC entry 3489 (class 0 OID 17977)
+-- Dependencies: 222
+-- Data for Name: funcionario_filial; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.funcionario_filial VALUES (3, 3);
+INSERT INTO public.funcionario_filial VALUES (2, 2);
+INSERT INTO public.funcionario_filial VALUES (1, 1);
+
+
+--
+-- TOC entry 3490 (class 0 OID 17980)
+-- Dependencies: 223
+-- Data for Name: funcionarios; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.funcionarios VALUES (1, '''funcionario1''', '''funcionario1@email.com''', 111, 0, '''rua1''', 11111, '''cidade1''');
+INSERT INTO public.funcionarios VALUES (2, '''funcionario2''', '''funcionario2@email.com''', 222, 1, '''rua2''', 22222, '''cidade2''');
+INSERT INTO public.funcionarios VALUES (3, '''funcionario3''', '''funcionario3@email.com''', 333, 1, '''rua3''', 33333, '''cidade3''');
+INSERT INTO public.funcionarios VALUES (4, '''funcionario4''', '''funcionario4@email.com''', 444, 0, '''rua2''', 4444, '''cidade4''');
+
+
+--
+-- TOC entry 3492 (class 0 OID 17984)
+-- Dependencies: 225
+-- Data for Name: pedidos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.pedidos VALUES (1, 1, '''observacao1''');
+INSERT INTO public.pedidos VALUES (2, 2, '''observacao2''');
+INSERT INTO public.pedidos VALUES (3, 3, '''observacao3''');
+INSERT INTO public.pedidos VALUES (4, 3, '''observacao4''');
+INSERT INTO public.pedidos VALUES (6, 6, '''observacao6''');
+INSERT INTO public.pedidos VALUES (5, 5, '''observacao5''');
+
+
+--
+-- TOC entry 3493 (class 0 OID 17987)
+-- Dependencies: 226
+-- Data for Name: pedidos_bebidas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.pedidos_bebidas VALUES (3, 1, 1);
+INSERT INTO public.pedidos_bebidas VALUES (2, 2, 6);
+INSERT INTO public.pedidos_bebidas VALUES (1, 1, 5);
+INSERT INTO public.pedidos_bebidas VALUES (6, 2, 8);
+INSERT INTO public.pedidos_bebidas VALUES (5, 1, 7);
+INSERT INTO public.pedidos_bebidas VALUES (4, 1, 3);
+
+
+--
+-- TOC entry 3495 (class 0 OID 17991)
+-- Dependencies: 228
+-- Data for Name: pedidos_pratos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.pedidos_pratos VALUES (3, 2, 5);
+INSERT INTO public.pedidos_pratos VALUES (2, 1, 2);
+INSERT INTO public.pedidos_pratos VALUES (1, 1, 6);
+INSERT INTO public.pedidos_pratos VALUES (6, 2, 3);
+INSERT INTO public.pedidos_pratos VALUES (5, 3, 10);
+INSERT INTO public.pedidos_pratos VALUES (4, 3, 7);
+
+
+--
+-- TOC entry 3496 (class 0 OID 17994)
+-- Dependencies: 229
+-- Data for Name: pratos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.pratos VALUES (1, '''hamburguer''', 200, 'R$ 30,00', 1);
+INSERT INTO public.pratos VALUES (2, '''pizza individual''', 150, 'R$ 15,00', 2);
+INSERT INTO public.pratos VALUES (3, '''salada''', 120, 'R$ 20,00', 3);
+INSERT INTO public.pratos VALUES (4, '''hambuguer vegano''', 180, 'R$ 20,00', 1);
+
+
+--
+-- TOC entry 3498 (class 0 OID 17998)
+-- Dependencies: 231
+-- Data for Name: produto_fornecido; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.produto_fornecido VALUES (1, 1, 10, '2022-01-01');
+INSERT INTO public.produto_fornecido VALUES (3, 2, 30, '2022-05-01');
+INSERT INTO public.produto_fornecido VALUES (5, 3, 3, '2022-12-01');
+
+
+--
+-- TOC entry 3499 (class 0 OID 18001)
+-- Dependencies: 232
+-- Data for Name: produtos_estoques; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.produtos_estoques VALUES (1, '''produto1''', 'R$ 50,00', 7);
+INSERT INTO public.produtos_estoques VALUES (2, '''produto2''', 'R$ 150,00', 10);
+INSERT INTO public.produtos_estoques VALUES (3, '''produto3''', 'R$ 20,00', 20);
+INSERT INTO public.produtos_estoques VALUES (4, '''produto4''', 'R$ 35,00', 48);
+INSERT INTO public.produtos_estoques VALUES (5, '''produto5''', 'R$ 400,00', 5);
+
+
+--
+-- TOC entry 3501 (class 0 OID 18005)
+-- Dependencies: 234
+-- Data for Name: vendas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.vendas VALUES (1, 1, 1, '2022-01-01 14:00:00', 8);
+INSERT INTO public.vendas VALUES (2, 2, 2, '2022-01-01 11:00:00', 9);
+INSERT INTO public.vendas VALUES (3, 2, 3, '2022-01-01 16:00:00', 4);
+INSERT INTO public.vendas VALUES (4, 3, 4, '2022-05-05 22:00:00', 5);
+INSERT INTO public.vendas VALUES (5, 4, 4, '2022-03-03 23:00:00', 10);
+INSERT INTO public.vendas VALUES (6, 3, 4, '2022-07-07 07:00:00', 7);
+
+
+--
+-- TOC entry 3519 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: bebidas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.bebidas_id_seq', 1, false);
+
+
+--
+-- TOC entry 3520 (class 0 OID 0)
+-- Dependencies: 212
+-- Name: categorias_bebidas_id_cat_bebida_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.categorias_bebidas_id_cat_bebida_seq', 1, false);
+
+
+--
+-- TOC entry 3521 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: categorias_pratos_id_cat_prato_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.categorias_pratos_id_cat_prato_seq', 1, false);
+
+
+--
+-- TOC entry 3522 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: cliente_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.cliente_id_seq', 4, true);
+
+
+--
+-- TOC entry 3523 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: filiais_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.filiais_id_seq', 1, false);
+
+
+--
+-- TOC entry 3524 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: fornecedores_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.fornecedores_id_seq', 1, false);
+
+
+--
+-- TOC entry 3525 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: funcionarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.funcionarios_id_seq', 1, false);
+
+
+--
+-- TOC entry 3526 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: pedidos_id_pedido_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.pedidos_id_pedido_seq', 1, false);
+
+
+--
+-- TOC entry 3527 (class 0 OID 0)
+-- Dependencies: 230
+-- Name: pratos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.pratos_id_seq', 1, false);
+
+
+--
+-- TOC entry 3528 (class 0 OID 0)
+-- Dependencies: 233
+-- Name: produtos_estoques_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.produtos_estoques_id_seq', 1, false);
+
+
+--
+-- TOC entry 3529 (class 0 OID 0)
+-- Dependencies: 235
+-- Name: vendas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.vendas_id_seq', 1, false);
+
+
+--
+-- TOC entry 3313 (class 2606 OID 18021)
+-- Name: pedidos_pratos Pedidos_Pratos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pedidos_pratos
+    ADD CONSTRAINT "Pedidos_Pratos_pkey" PRIMARY KEY (id_pedido, id_prato);
+
+
+--
+-- TOC entry 3291 (class 2606 OID 18023)
+-- Name: bebidas bebidas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bebidas
+    ADD CONSTRAINT bebidas_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3293 (class 2606 OID 18025)
+-- Name: categorias_bebidas categorias_bebidas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.categorias_bebidas
+    ADD CONSTRAINT categorias_bebidas_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3295 (class 2606 OID 18027)
+-- Name: categorias_pratos categorias_pratos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.categorias_pratos
+    ADD CONSTRAINT categorias_pratos_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3297 (class 2606 OID 18029)
+-- Name: clientes cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.clientes
+    ADD CONSTRAINT cliente_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3299 (class 2606 OID 18031)
+-- Name: estoque_da_filial estoque_da_filial_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.estoque_da_filial
+    ADD CONSTRAINT estoque_da_filial_pkey PRIMARY KEY (id_filial, id_prod_estoque);
+
+
+--
+-- TOC entry 3301 (class 2606 OID 18033)
+-- Name: filiais filiais_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.filiais
+    ADD CONSTRAINT filiais_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3303 (class 2606 OID 18035)
+-- Name: fornecedores fornecedores_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.fornecedores
+    ADD CONSTRAINT fornecedores_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3305 (class 2606 OID 18037)
+-- Name: funcionario_filial funcionario_filial_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.funcionario_filial
+    ADD CONSTRAINT funcionario_filial_pkey PRIMARY KEY (id_funcionario);
+
+
+--
+-- TOC entry 3307 (class 2606 OID 18039)
+-- Name: funcionarios funcionarios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.funcionarios
+    ADD CONSTRAINT funcionarios_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3311 (class 2606 OID 18041)
+-- Name: pedidos_bebidas pedidos_bebidas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pedidos_bebidas
+    ADD CONSTRAINT pedidos_bebidas_pkey PRIMARY KEY (id_pedido, id_bebida);
+
+
+--
+-- TOC entry 3309 (class 2606 OID 18043)
+-- Name: pedidos pedidos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pedidos
+    ADD CONSTRAINT pedidos_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3315 (class 2606 OID 18045)
+-- Name: pratos pratos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pratos
+    ADD CONSTRAINT pratos_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3317 (class 2606 OID 18047)
+-- Name: produto_fornecido produto_fornecido_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.produto_fornecido
+    ADD CONSTRAINT produto_fornecido_pkey PRIMARY KEY (id_prod_estoque, id_fornecedor, data_fornecido);
+
+
+--
+-- TOC entry 3319 (class 2606 OID 18049)
+-- Name: produtos_estoques produtos_estoques_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.produtos_estoques
+    ADD CONSTRAINT produtos_estoques_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3321 (class 2606 OID 18051)
+-- Name: vendas vendas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.vendas
+    ADD CONSTRAINT vendas_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3328 (class 2606 OID 18052)
+-- Name: pedidos_bebidas id_bebida; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pedidos_bebidas
+    ADD CONSTRAINT id_bebida FOREIGN KEY (id_bebida) REFERENCES public.bebidas(id) NOT VALID;
+
+
+--
+-- TOC entry 3322 (class 2606 OID 18057)
+-- Name: bebidas id_cat_bebida; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bebidas
+    ADD CONSTRAINT id_cat_bebida FOREIGN KEY (id_cat_bebida) REFERENCES public.categorias_bebidas(id) NOT VALID;
+
+
+--
+-- TOC entry 3332 (class 2606 OID 18062)
+-- Name: pratos id_cat_prato; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pratos
+    ADD CONSTRAINT id_cat_prato FOREIGN KEY (id_cat_prato) REFERENCES public.categorias_pratos(id) NOT VALID;
+
+
+--
+-- TOC entry 3335 (class 2606 OID 18067)
+-- Name: vendas id_cliente; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.vendas
+    ADD CONSTRAINT id_cliente FOREIGN KEY (id_cliente) REFERENCES public.clientes(id) NOT VALID;
+
+
+--
+-- TOC entry 3323 (class 2606 OID 18072)
+-- Name: estoque_da_filial id_filial; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.estoque_da_filial
+    ADD CONSTRAINT id_filial FOREIGN KEY (id_filial) REFERENCES public.filiais(id) NOT VALID;
+
+
+--
+-- TOC entry 3325 (class 2606 OID 18077)
+-- Name: funcionario_filial id_filial; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.funcionario_filial
+    ADD CONSTRAINT id_filial FOREIGN KEY (id_filial) REFERENCES public.filiais(id) NOT VALID;
+
+
+--
+-- TOC entry 3333 (class 2606 OID 18082)
+-- Name: produto_fornecido id_fornecedor; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.produto_fornecido
+    ADD CONSTRAINT id_fornecedor FOREIGN KEY (id_fornecedor) REFERENCES public.fornecedores(id) NOT VALID;
+
+
+--
+-- TOC entry 3326 (class 2606 OID 18087)
+-- Name: funcionario_filial id_funcionario; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.funcionario_filial
+    ADD CONSTRAINT id_funcionario FOREIGN KEY (id_funcionario) REFERENCES public.funcionarios(id) NOT VALID;
+
+
+--
+-- TOC entry 3336 (class 2606 OID 18092)
+-- Name: vendas id_funcionario; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.vendas
+    ADD CONSTRAINT id_funcionario FOREIGN KEY (id_funcionario) REFERENCES public.funcionarios(id) NOT VALID;
+
+
+--
+-- TOC entry 3329 (class 2606 OID 18097)
+-- Name: pedidos_bebidas id_pedido; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pedidos_bebidas
+    ADD CONSTRAINT id_pedido FOREIGN KEY (id_pedido) REFERENCES public.pedidos(id) NOT VALID;
+
+
+--
+-- TOC entry 3330 (class 2606 OID 18102)
+-- Name: pedidos_pratos id_pedido; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pedidos_pratos
+    ADD CONSTRAINT id_pedido FOREIGN KEY (id_pedido) REFERENCES public.pedidos(id) NOT VALID;
+
+
+--
+-- TOC entry 3331 (class 2606 OID 18107)
+-- Name: pedidos_pratos id_prato; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pedidos_pratos
+    ADD CONSTRAINT id_prato FOREIGN KEY (id_prato) REFERENCES public.pratos(id) NOT VALID;
+
+
+--
+-- TOC entry 3324 (class 2606 OID 18112)
+-- Name: estoque_da_filial id_prod_estoque; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.estoque_da_filial
+    ADD CONSTRAINT id_prod_estoque FOREIGN KEY (id_prod_estoque) REFERENCES public.produtos_estoques(id) NOT VALID;
+
+
+--
+-- TOC entry 3334 (class 2606 OID 18117)
+-- Name: produto_fornecido id_prod_estoque; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.produto_fornecido
+    ADD CONSTRAINT id_prod_estoque FOREIGN KEY (id_prod_estoque) REFERENCES public.produtos_estoques(id) NOT VALID;
+
+
+--
+-- TOC entry 3327 (class 2606 OID 18122)
+-- Name: pedidos id_venda; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pedidos
+    ADD CONSTRAINT id_venda FOREIGN KEY (id_venda) REFERENCES public.vendas(id) NOT VALID;
+
+--
+-- PostgreSQL database dump complete
+--
+
