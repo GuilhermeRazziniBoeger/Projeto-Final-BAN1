@@ -5,4 +5,4 @@ Repositório contendo aplicação python com banco de dados postgre.
 
 * Arquivo aplicacao_com_postgre_python.py contém o código da aplicação que se comunica com o banco de dados acima, desenvolvida em python.
 
-Projeto desenvolvido por Guilherme Razzini Boeger.
+Desenvolvido por Guilherme Razzini Boeger.
